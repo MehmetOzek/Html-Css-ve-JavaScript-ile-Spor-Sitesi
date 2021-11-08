@@ -1,0 +1,210 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>olimpiyatlar</title>
+<meta name="generator">
+<link href="sports-portal-bar-icon-png-21.png" rel="shortcut icon" type="image/x-icon">
+<link href="anasayfa.css" rel="stylesheet">
+<link href="olimpiyatlar.css" rel="stylesheet">
+<script src="jquery-1.12.4.min.js"></script>
+<script src="wb.panel.min.js"></script>
+<script src="./searchindex.js"></script>
+<script>
+var features = 'toolbar=no,menubar=no,location=no,scrollbars=yes,resizable=yes,status=no,left=,top=,width=,height=';
+var searchDatabase = new SearchDatabase();
+var searchResults_length = 0;
+var searchResults = new Object();
+function searchPage(features)
+{
+   var element = document.getElementById('SiteSearch1');
+   if (element.value.length != 0 || element.value != " ")
+   {
+      var value = unescape(element.value);
+      var keywords = value.split(" ");
+      searchResults_length = 0;
+      for (var i=0; i<database_length; i++)
+      {
+         var matches = 0;
+         var words = searchDatabase[i].title + " " + searchDatabase[i].description + " " + searchDatabase[i].keywords;
+         for (var j = 0; j < keywords.length; j++)
+         {
+            var pattern = new RegExp(keywords[j], "i");
+            var result = words.search(pattern);
+            if (result >= 0)
+            {
+               matches++;
+            }
+            else
+            {
+               matches = 0;
+            }
+         }
+         if (matches == keywords.length)
+         {
+            searchResults[searchResults_length++] = searchDatabase[i];
+         }
+      }
+      var wndResults = window.open('about:blank', '', features);
+      setTimeout(function()
+      {
+         var results = '';
+         var html = '<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Search results<\/title><\/head>';
+         html = html + '<body style="background-color:#FFFFFF;margin:0;padding:2px 2px 2px 2px;">';
+         html = html + '<span style="font-family:Monotype Corsiva;font-size:13px;color:#000000">';
+         for (var n=0; n<searchResults_length; n++)
+         {
+            var page_keywords = searchResults[n].keywords;
+            results = results + '<strong><a style="color:#0000FF" target="_parent" href="'+searchResults[n].url+'">'+searchResults[n].title +'<\/a><\/strong><br>Anahtar Kelime:' + page_keywords +'<br><br>\n';
+         }
+         if (searchResults_length == 0)
+         {
+            results = 'Sonuç Bulunamadı';
+         }
+         else
+         {
+            html = html + searchResults_length;
+            html = html + 'Bulunan Sonuçlar:';
+            html = html + value;
+            html = html + '<br><br>';
+         }
+         html = html + results;
+         html = html + '<\/span>';
+         html = html + '<\/body><\/html>';
+         wndResults.document.write(html);
+     },100);
+   }
+   return false;
+}
+function searchParseURL()
+{
+   var url = decodeURIComponent(window.location.href);
+   if (url.indexOf('?') > 0)
+   {
+      var terms = '';
+      var params = url.split('?');
+      var values = params[1].split('&');
+      for (var i=0;i<values.length;i++)
+      {
+         var param = values[i].split('=');
+         if (param[0] == 'q')
+         {
+            terms = unescape(param[1]);
+            break;
+         }
+      }
+      if (terms != '')
+      {
+         var element = document.getElementById('SiteSearch1');
+         element.value = terms;
+         searchPage('');
+      }
+   }
+}
+</script>
+<script>
+$(document).ready(function()
+{
+   searchParseURL();
+   $("#PanelMenu1").panel({animate: true, animationDuration: 200, animationEasing: 'linear', dismissible: true, display: 'push', position: 'left', toggle: true});
+});
+</script>
+</head>
+<body>
+<div id="container">
+<div id="wb_Image1" style="position:absolute;left:0px;top:0px;width:960px;height:172px;z-index:6;">
+<img src="images/1241banner-001.jpg" id="Image1" alt=""></div>
+<form name="SiteSearch1_form" id="SiteSearch1_form" accept-charset="UTF-8" onsubmit="return searchPage(features)">
+<input type="text" id="SiteSearch1" style="position:absolute;left:656px;top:182px;width:195px;height:19px;line-height:19px;z-index:7;" name="SiteSearch1" value="" placeholder="  Sitede Ara"></form>
+<input type="button" id="Button1" onclick="searchPage();return false;" name="Ara" value="Ara" style="position:absolute;left:864px;top:184px;width:96px;height:25px;z-index:8;">
+<div id="wb_Text1" style="position:absolute;left:0px;top:1112px;width:960px;height:17px;z-index:9;text-align:left;">
+<span style="color:#808080;font-family:Arial;font-size:15px;">&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; Mehmet Özek l İsmail Nair l Tüm hakları gizlidir.İzinsiz kopyalanamaz ve taşınamaz. &#0169;</span></div>
+<div id="wb_loginform" style="position:absolute;left:655px;top:219px;width:303px;height:156px;z-index:10;">
+<form name="loginform" method="post" action="giriş" accept-charset="UTF-8" id="loginform">
+<input type="hidden" name="form_name" value="loginform">
+<input type="text" id="username" style="position:absolute;left:7px;top:27px;width:279px;height:18px;line-height:18px;z-index:0;" name="username" value="">
+<label for="password" id="Label2" style="position:absolute;left:6px;top:55px;width:283px;height:18px;line-height:18px;z-index:1;">Şifre</label>
+<input type="password" id="password" style="position:absolute;left:7px;top:81px;width:279px;height:18px;line-height:18px;z-index:2;" name="password" value="" maxlength="15">
+<label for="rememberme" id="Label3" style="position:absolute;left:21px;top:106px;width:268px;height:18px;line-height:18px;z-index:3;">Beni Hatırla</label>
+<input type="checkbox" id="rememberme" name="rememberme" value="on" style="position:absolute;left:8px;top:109px;z-index:4;">
+<input type="submit" id="login" name="login" value="Giriş" style="position:absolute;left:112px;top:124px;width:55px;height:24px;z-index:5;">
+</form>
+</div>
+<label for="username" id="Label1" style="position:absolute;left:662px;top:219px;width:283px;height:18px;line-height:18px;z-index:11;">Kullanıcı Adı</label>
+<div id="wb_CssMenu1" style="position:absolute;left:0px;top:182px;width:650px;height:49px;z-index:12;">
+<ul>
+<li class="firstmain"><a href="./index.html" target="_self">Anasayfa</a>
+</li>
+<li><a href="./akademik.html" target="_self">Akademik</a>
+</li>
+<li><a href="./turnuvalar.html" target="_self">Turnuvalar</a>
+</li>
+</ul>
+</div>
+<div id="wb_PanelMenu1" style="position:absolute;left:0px;top:307px;width:648px;height:59px;text-align:center;z-index:13;">
+<a href="#PanelMenu1_markup" id="PanelMenu1">Bran&#351;lar</a>
+<div id="PanelMenu1_markup">
+<ul>
+   <li><a href="./futbol.html">Futbol</a></li>
+   <li><a href="./basketbol.html">Basketbol</a></li>
+   <li><a href="./voleybol.html">Voleybol</a></li>
+   <li><a href="./tenis.html">Tenis</a></li>
+   <li><a href="./yüzme.html">Y&#252;zme</a></li>
+   <li><a href="./aticilik.html">At&#305;c&#305;l&#305;k</a></li>
+   <li><a href="./binicilik.html">Binicilik</a></li>
+   <li><a href="./badminton.html">Badminton</a></li>
+   <li><a href="./kürek.html">K&#252;rek</a></li>
+   <li><a href="./hokey.html">Buz Hokeyi</a></li>
+</ul>
+</div>
+</div>
+<div id="wb_CssMenu2" style="position:absolute;left:0px;top:247px;width:650px;height:44px;z-index:14;">
+<ul>
+<li class="firstmain"><a href="./olimpiyatlar.html" target="_self">Olimpiyatlar</a>
+</li>
+<li><a href="./gencolimpiyat.html" target="_self">Gen&#231;lik&nbsp;Olimpiyatlar</a>
+</li>
+<li><a class="withsubmenu" href="#" target="_self">Galeri</a>
+
+<ul>
+<li class="firstitem"><a href="#" target="_self">Foto&#287;raf&nbsp;Galerisi</a>
+</li>
+<li class="lastitem"><a href="./videogaleri.html" target="_self">Video&nbsp;Galerisi</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="wb_CssMenu4" style="position:absolute;left:193px;top:1054px;width:572px;height:38px;z-index:15;">
+<ul>
+<li class="firstmain"><a href="./iletisim.html" target="_self">&#304;leti&#351;im</a>
+</li>
+<li><a href="./hakkinda.html" target="_self">Hakk&#305;m&#305;zda</a>
+</li>
+<li><a href="./yasal.html" target="_self">Yasal&nbsp;Bilgiler</a>
+</li>
+<li><a href="./siteharitasi.html" target="_self">Site&nbsp;Haritas&#305;</a>
+</li>
+</ul>
+</div>
+<div id="wb_Image2" style="position:absolute;left:162px;top:390px;width:586px;height:401px;z-index:16;">
+<img src="images/board_60740_14588_thumb.jpg" id="Image2" alt=""></div>
+<div id="wb_Text2" style="position:absolute;left:113px;top:401px;width:748px;height:49px;z-index:17;text-align:left;">
+<span style="color:#FFD700;font-family:'Comic Sans MS';font-size:35px;">Kış Olimpiyatlarında Yaşanılanlar!&nbsp;&nbsp; &nbsp;&nbsp; </span></div>
+<div id="wb_Shape1" style="position:absolute;left:0px;top:717px;width:864px;height:212px;z-index:18;">
+<img src="images/img0009.png" id="Shape1" alt="" style="width:864px;height:212px;"></div>
+<div id="wb_Text3" style="position:absolute;left:97px;top:739px;width:700px;height:33px;z-index:19;text-align:left;">
+<span style="color:#000000;font-family:Tahoma;font-size:27px;">Ülke&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Tarih</span></div>
+<div id="wb_Text4" style="position:absolute;left:97px;top:819px;width:745px;height:33px;z-index:20;text-align:left;">
+<span style="color:#000000;font-family:Tahoma;font-size:27px;">Sporcu&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; Yarış Alanları</span></div>
+<div id="wb_Text5" style="position:absolute;left:84px;top:772px;width:726px;height:24px;z-index:21;text-align:left;">
+<span style="color:#000000;font-family:Tahoma;font-size:20px;">Güney Kore&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 9-25 Şubat 2018</span></div>
+<div id="wb_Text6" style="position:absolute;left:84px;top:861px;width:726px;height:24px;z-index:22;text-align:left;">
+<span style="color:#000000;font-family:Tahoma;font-size:20px;">&nbsp;&nbsp;&nbsp;&nbsp; 5000&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 12</span></div>
+<div id="wb_Text7" style="position:absolute;left:257px;top:729px;width:341px;height:182px;z-index:23;text-align:left;">
+<span style="color:#000000;font-family:Arial;font-size:11px;">PyeongChang 2018 Kış Olimpiyat Oyunları<br>XXIII. Kış Olimpiyat Oyunları, 9-25 Şubat 2018 tarihleri arasında Güney Kore'nin PyeongChang, Gangneung, Jeongseon bölgelerinde düzenlenecektir.<br><br>Sapporo 1972 Kış Olimpiyat Oyunları ve Nagano 1998 Kış Olimpiyat Oyunları’nın ardından Uzak Doğu'da düzenlenecek üçüncü kış Olimpiyatı olacak PyeongChang 2018 Kış Olimpiyatlarının ardından, PyeongChang 2018 Paralimpik Kış Oyunları ise 9-18 Mart 2018 tarihlerinde düzenlendi.<br><br>Yaklaşık 100 ülkeden 5 bine yakın sporcu, idareci ve teknik ekibin katılması beklenen Oyunlarda 7 dalda 15 kış sporu yer aldı.</span></div>
+<div id="wb_Text8" style="position:absolute;left:350px;top:939px;width:210px;height:72px;z-index:24;text-align:left;">
+<span style="color:#000000;font-family:Arial;font-size:21px;">Resmi Web Sayfası<br><br> <a href="http://www.pyeongchang2018.com/">PyeongChang2018</a></span></div>
+</div>
+</body>
+</html>

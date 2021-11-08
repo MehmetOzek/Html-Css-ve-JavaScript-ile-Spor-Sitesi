@@ -1,0 +1,297 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Anasayfa</title>
+<meta name="generator">
+<link href="sports-portal-bar-icon-png-21.png" rel="shortcut icon" type="image/x-icon">
+<link href="anasayfa.css" rel="stylesheet">
+<link href="index.css" rel="stylesheet">
+<script src="jquery-1.12.4.min.js"></script>
+<script src="wb.panel.min.js"></script>
+<script src="./searchindex.js"></script>
+<script>
+var features = 'toolbar=no,menubar=no,location=no,scrollbars=yes,resizable=yes,status=no,left=,top=,width=,height=';
+var searchDatabase = new SearchDatabase();
+var searchResults_length = 0;
+var searchResults = new Object();
+function searchPage(features)
+{
+   var element = document.getElementById('SiteSearch1');
+   if (element.value.length != 0 || element.value != " ")
+   {
+      var value = unescape(element.value);
+      var keywords = value.split(" ");
+      searchResults_length = 0;
+      for (var i=0; i<database_length; i++)
+      {
+         var matches = 0;
+         var words = searchDatabase[i].title + " " + searchDatabase[i].description + " " + searchDatabase[i].keywords;
+         for (var j = 0; j < keywords.length; j++)
+         {
+            var pattern = new RegExp(keywords[j], "i");
+            var result = words.search(pattern);
+            if (result >= 0)
+            {
+               matches++;
+            }
+            else
+            {
+               matches = 0;
+            }
+         }
+         if (matches == keywords.length)
+         {
+            searchResults[searchResults_length++] = searchDatabase[i];
+         }
+      }
+      var wndResults = window.open('about:blank', '', features);
+      setTimeout(function()
+      {
+         var results = '';
+         var html = '<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Search results<\/title><\/head>';
+         html = html + '<body style="background-color:#FFFFFF;margin:0;padding:2px 2px 2px 2px;">';
+         html = html + '<span style="font-family:Monotype Corsiva;font-size:13px;color:#000000">';
+         for (var n=0; n<searchResults_length; n++)
+         {
+            var page_keywords = searchResults[n].keywords;
+            results = results + '<strong><a style="color:#0000FF" target="_parent" href="'+searchResults[n].url+'">'+searchResults[n].title +'<\/a><\/strong><br>Anahtar Kelime:' + page_keywords +'<br><br>\n';
+         }
+         if (searchResults_length == 0)
+         {
+            results = 'Sonuç Bulunamadı';
+         }
+         else
+         {
+            html = html + searchResults_length;
+            html = html + 'Bulunan Sonuçlar:';
+            html = html + value;
+            html = html + '<br><br>';
+         }
+         html = html + results;
+         html = html + '<\/span>';
+         html = html + '<\/body><\/html>';
+         wndResults.document.write(html);
+     },100);
+   }
+   return false;
+}
+function searchParseURL()
+{
+   var url = decodeURIComponent(window.location.href);
+   if (url.indexOf('?') > 0)
+   {
+      var terms = '';
+      var params = url.split('?');
+      var values = params[1].split('&');
+      for (var i=0;i<values.length;i++)
+      {
+         var param = values[i].split('=');
+         if (param[0] == 'q')
+         {
+            terms = unescape(param[1]);
+            break;
+         }
+      }
+      if (terms != '')
+      {
+         var element = document.getElementById('SiteSearch1');
+         element.value = terms;
+         searchPage('');
+      }
+   }
+}
+</script>
+<script>
+$(document).ready(function()
+{
+   $("#PanelMenu1").panel({animate: true, animationDuration: 200, animationEasing: 'linear', dismissible: true, display: 'push', position: 'left', toggle: true});
+   searchParseURL();
+});
+</script>
+</head>
+<body>
+<div id="container">
+<div id="wb_Shape7" style="position:absolute;left:528px;top:1154px;width:415px;height:258px;z-index:6;">
+<img src="images/img0015.png" id="Shape7" alt="" style="width:415px;height:258px;"></div>
+<div id="wb_Image1" style="position:absolute;left:0px;top:0px;width:960px;height:172px;z-index:7;">
+<img src="images/1241banner-001.jpg" id="Image1" alt=""></div>
+<div id="wb_CssMenu1" style="position:absolute;left:0px;top:182px;width:650px;height:49px;z-index:8;">
+<ul>
+<li class="firstmain"><a href="./index.html" target="_self">Anasayfa</a>
+</li>
+<li><a href="./akademik.html" target="_self">Akademik</a>
+</li>
+<li><a href="./turnuvalar.html" target="_self">Turnuvalar</a>
+</li>
+</ul>
+</div>
+<div id="wb_PanelMenu1" style="position:absolute;left:0px;top:283px;width:648px;height:59px;text-align:center;z-index:9;">
+<a href="#PanelMenu1_markup" id="PanelMenu1">Bran&#351;lar</a>
+<div id="PanelMenu1_markup">
+<ul>
+   <li><a href="./futbol.html">Futbol</a></li>
+   <li><a href="./basketbol.html">Basketbol</a></li>
+   <li><a href="./voleybol.html">Voleybol</a></li>
+   <li><a href="./tenis.html">Tenis</a></li>
+   <li><a href="./yüzme.html">Y&#252;zme</a></li>
+   <li><a href="./aticilik.html">At&#305;c&#305;l&#305;k</a></li>
+   <li><a href="./binicilik.html">Binicilik</a></li>
+   <li><a href="./badminton.html">Badminton</a></li>
+   <li><a href="./kürek.html">K&#252;rek</a></li>
+   <li><a href="./hokey.html">Buz Hokeyi</a></li>
+</ul>
+</div>
+</div>
+<div id="wb_CssMenu2" style="position:absolute;left:0px;top:231px;width:650px;height:44px;z-index:10;">
+<ul>
+<li class="firstmain"><a href="./olimpiyatlar.html" target="_self">Olimpiyatlar</a>
+</li>
+<li><a href="./gencolimpiyat.html" target="_self">Gen&#231;lik&nbsp;Olimpiyatlar</a>
+</li>
+<li><a class="withsubmenu" href="#" target="_self">Galeri</a>
+
+<ul>
+<li class="firstitem"><a href="#" target="_self">Foto&#287;raf&nbsp;Galerisi</a>
+</li>
+<li class="lastitem"><a href="./videogaleri.html" target="_self">Video&nbsp;Galerisi</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<form name="SiteSearch1_form" id="SiteSearch1_form" accept-charset="UTF-8" onsubmit="return searchPage(features)">
+<input type="text" id="SiteSearch1" style="position:absolute;left:656px;top:182px;width:195px;height:19px;line-height:19px;z-index:11;" name="SiteSearch1" value="" placeholder="  Sitede Ara"></form>
+<input type="button" id="Button1" onclick="searchPage();return false;" name="Ara" value="Ara" style="position:absolute;left:864px;top:184px;width:96px;height:25px;z-index:12;">
+<!-- Puan Durumu -->
+<div id="Html1" style="position:absolute;left:554px;top:378px;width:269px;height:301px;z-index:13">
+<iframe id="Puantablosu" src="http://www.ücretsiz.com/puantablosu.html" style="width:330px; height:485px;background:white;*border:1px solid red;" frameborder="0"></iframe></div>
+<div id="wb_CssMenu3" style="position:absolute;left:193px;top:1404px;width:572px;height:38px;z-index:14;">
+<ul>
+<li class="firstmain"><a href="#" target="_self">&#304;leti&#351;im</a>
+</li>
+<li><a href="#" target="_self">Hakk&#305;m&#305;zda</a>
+</li>
+<li><a href="#" target="_self">Yasal&nbsp;Bilgiler</a>
+</li>
+<li><a href="#" target="_self">Site&nbsp;Haritas&#305;</a>
+</li>
+</ul>
+</div>
+<div id="wb_Text1" style="position:absolute;left:0px;top:1444px;width:960px;height:17px;z-index:15;text-align:left;">
+<span style="color:#808080;font-family:Arial;font-size:15px;">&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; Mehmet Özek l İsmal Nair l Tüm hakları gizlidir.İzinsiz kopyalanamaz ve taşınamaz. &#0169;</span></div>
+<div id="wb_loginform" style="position:absolute;left:655px;top:219px;width:303px;height:156px;z-index:16;">
+<form name="loginform" method="post" action="giriş" accept-charset="UTF-8" id="loginform">
+<input type="hidden" name="form_name" value="loginform">
+<input type="text" id="username" style="position:absolute;left:7px;top:27px;width:279px;height:18px;line-height:18px;z-index:0;" name="username" value="">
+<label for="password" id="Label2" style="position:absolute;left:6px;top:55px;width:283px;height:18px;line-height:18px;z-index:1;">Şifre</label>
+<input type="password" id="password" style="position:absolute;left:7px;top:81px;width:279px;height:18px;line-height:18px;z-index:2;" name="password" value="" maxlength="15">
+<label for="rememberme" id="Label3" style="position:absolute;left:21px;top:106px;width:268px;height:18px;line-height:18px;z-index:3;">Beni Hatırla</label>
+<input type="checkbox" id="rememberme" name="rememberme" value="on" style="position:absolute;left:8px;top:109px;z-index:4;">
+<input type="submit" id="login" name="login" value="Giriş" style="position:absolute;left:112px;top:124px;width:55px;height:24px;z-index:5;">
+</form>
+</div>
+<label for="username" id="Label1" style="position:absolute;left:662px;top:219px;width:283px;height:18px;line-height:18px;z-index:17;">Kullanıcı Adı</label>
+<div id="wb_JavaScript1" style="position:absolute;left:0px;top:352px;width:133px;height:43px;z-index:18;">
+<a href="http://www.facebook.com/carpediem1997" rel="nofollow"><img style="width:75px;height:30px;border-width:0;" alt="Yönetici" title="Yönetici" src="logo_facebook.gif"></a></div>
+<div id="wb_JavaScript2" style="position:absolute;left:249px;top:352px;width:119px;height:43px;z-index:19;">
+<g:plusone size="standard" annotation="bubble" width="119" href="https://plus.google.com/u/0/115341333691671006257"></g:plusone>
+
+
+<script>
+
+window.___gcfg = {lang: 'en-US'};
+
+
+(function() 
+{
+
+   var po = document.createElement('script');
+   po.type = 'text/javascript';
+   po.async = true;
+
+   po.src = 'https://apis.google.com/js/plusone.js';
+
+   var s = document.getElementsByTagName('script')[0];
+   s.parentNode.insertBefore(po, s);
+
+})();
+
+</script></div>
+<div id="wb_JavaScript3" style="position:absolute;left:133px;top:352px;width:141px;height:43px;z-index:20;">
+<a href="http://www.facebook.com/" rel="nofollow"><img style="width:75px;height:30px;border-width:0;" alt="Yönetici" title="Yönetici" src="logo_facebook.gif"></a></div>
+<div id="wb_JavaScript4" style="position:absolute;left:407px;top:354px;width:110px;height:39px;z-index:21;">
+<a href="http://twitter.com/" rel="nofollow"><img style="width:82px;height:28px;border-width:0;" alt="Yönetici" title="Yönetici" src="logo_twitter.gif"></a></div>
+<div id="wb_JavaScript5" style="position:absolute;left:312px;top:352px;width:119px;height:43px;z-index:22;">
+<g:plusone size="standard" annotation="bubble" width="119" href="https://plus.google.com/103157163672530542188"></g:plusone>
+
+
+<script>
+
+window.___gcfg = {lang: 'en-US'};
+
+
+(function() 
+{
+
+   var po = document.createElement('script');
+   po.type = 'text/javascript';
+   po.async = true;
+
+   po.src = 'https://apis.google.com/js/plusone.js';
+
+   var s = document.getElementsByTagName('script')[0];
+   s.parentNode.insertBefore(po, s);
+
+})();
+
+</script></div>
+<div id="wb_Shape1" style="position:absolute;left:0px;top:413px;width:249px;height:266px;z-index:23;">
+<img src="images/img0011.png" id="Shape1" alt="" style="width:249px;height:266px;"></div>
+<div id="wb_Image2" style="position:absolute;left:11px;top:425px;width:225px;height:127px;z-index:24;">
+<a href="./index.html"><img src="images/dirar-225.jpg" id="Image2" alt=""></a></div>
+<div id="wb_Text2" style="position:absolute;left:24px;top:552px;width:225px;height:24px;z-index:25;text-align:left;">
+<span class="gri"><a href="./index.html" class="gri">Sırada Nabil Dirar var</a></span></div>
+<div id="wb_Text3" style="position:absolute;left:16px;top:585px;width:220px;height:76px;z-index:26;text-align:left;">
+<span style="color:#000000;font-family:Tahoma;font-size:16px;">Fenerbahçe, Mehmet Ekici ve Mathieu Valbuena’nın ardından Nabil Dirar’ı da kadroya katmaya hazırlanıyor.</span></div>
+<div id="wb_Shape3" style="position:absolute;left:0px;top:697px;width:249px;height:313px;z-index:27;">
+<img src="images/img0012.png" id="Shape3" alt="" style="width:249px;height:313px;"></div>
+<div id="wb_Image4" style="position:absolute;left:11px;top:709px;width:225px;height:127px;z-index:28;">
+<a href="./index.html"><img src="images/hakan-calhanoglu-225.jpg" id="Image4" alt=""></a></div>
+<div id="wb_Text6" style="position:absolute;left:24px;top:836px;width:225px;height:24px;z-index:29;text-align:left;">
+<span style="color:#808080;font-family:Tahoma;font-size:20px;"><a href="./index.html">Hakan'ın Cezası Bitti</a></span></div>
+<div id="wb_Text7" style="position:absolute;left:16px;top:869px;width:220px;height:133px;z-index:30;text-align:left;">
+<span style="color:#000000;font-family:Arial;font-size:17px;">Trabzonspor ile 2011'de imzaladığı sözleşme maddelerini yerine getirmediği gerekçesiyle 4 ay futboldan men edilen Hakan Çalhanoğlu'nun ceza süresi sona erdi.</span></div>
+<div id="wb_Shape4" style="position:absolute;left:274px;top:405px;width:249px;height:495px;z-index:31;">
+<img src="images/img0013.png" id="Shape4" alt="" style="width:249px;height:495px;"></div>
+<div id="wb_Text8" style="position:absolute;left:275px;top:778px;width:238px;height:24px;z-index:32;text-align:left;">
+<span style="color:#808080;font-family:Tahoma;font-size:20px;"><a href="./index.html">Enes'e Hadise'li Karşılama</a></span></div>
+<div id="wb_Text9" style="position:absolute;left:284px;top:811px;width:220px;height:133px;z-index:33;text-align:left;">
+<span style="color:#000000;font-family:Tahoma;font-size:16px;">La Liga ekiplerinden Villarreal'e transfer olan Enes Ünal'ı, İspanyol kulübü Hadise'nin Düm Tek Tek şarkısıyla tanıttı.<br><br></span></div>
+<div id="wb_Shape5" style="position:absolute;left:539px;top:869px;width:413px;height:274px;z-index:34;">
+<img src="images/img0014.png" id="Shape5" alt="" style="width:413px;height:274px;"></div>
+<div id="wb_Text10" style="position:absolute;left:555px;top:999px;width:386px;height:44px;z-index:35;text-align:left;">
+<span style="color:#000000;font-family:Arial;font-size:19px;"><a href="./index.html" class="gri">Şampiyonlar Ligi finali: Liverpol - Real Madrid</a></span></div>
+<div id="wb_Text11" style="position:absolute;left:555px;top:1046px;width:220px;height:2px;z-index:36;text-align:left;">
+&nbsp;</div>
+<div id="wb_Image6" style="position:absolute;left:652px;top:887px;width:191px;height:107px;z-index:37;">
+<a href="./index.html"><img src="images/liverpol---real-madrid-maci-225.jpg" id="Image6" alt=""></a></div>
+<div id="wb_Text12" style="position:absolute;left:555px;top:1043px;width:386px;height:95px;z-index:38;text-align:left;">
+<span style="color:#000000;font-family:Tahoma;font-size:16px;">Galler'in Cardiff kentindeki Milenyum Stad&#0305;'nda 3 Haziran Cumartesi g&#0252;n&#0252; oynanacak final ma&#0231;&#0305;nda Brych'&#0305;n yard&#0305;mc&#0305;l&#0305;klar&#0305;n&#0305;, ayn&#0305; &#0252;lkeden Mark Borsch ve Stefan Lupp yapacak. S&#0305;rbistanl&#0305; Milorad Mazic ise 4. hakem olarak g&#0246;rev alacak.(TRT1 / 21:45)</span></div>
+<div id="wb_Image3" style="position:absolute;left:281px;top:425px;width:227px;height:345px;z-index:39;">
+<img src="images/5a54d16f6d0c6f67fbf67105cb9564a6.jpg" id="Image3" alt=""></div>
+<div id="wb_Shape2" style="position:absolute;left:18px;top:1104px;width:523px;height:295px;z-index:40;">
+<img src="images/img0016.png" id="Shape2" alt="" style="width:523px;height:295px;"></div>
+<div id="wb_Shape6" style="position:absolute;left:278px;top:990px;width:257px;height:120px;z-index:41;">
+<img src="images/img0017.png" id="Shape6" alt="" style="width:257px;height:120px;"></div>
+<div id="wb_Image5" style="position:absolute;left:287px;top:1010px;width:239px;height:388px;z-index:42;">
+<img src="images/vapur.jpg" id="Image5" alt=""></div>
+<div id="wb_Image7" style="position:absolute;left:526px;top:1164px;width:412px;height:234px;z-index:43;">
+<img src="images/sampiyonluk.jpg" id="Image7" alt=""></div>
+<div id="wb_Text4" style="position:absolute;left:19px;top:1043px;width:256px;height:21px;z-index:44;text-align:left;">
+<span style="color:#000000;font-family:'Lucida Console';font-size:21px;">ŞAMPİYON GALATASARAY!</span></div>
+<div id="wb_Text5" style="position:absolute;left:32px;top:1176px;width:257px;height:210px;z-index:45;text-align:left;">
+<span style="color:#000000;font-family:Tahoma;font-size:17px;">Spor Toto Süper Lig'in 34. haftasında Göztepe'yi 1-0 yenerek ligi tamamlayan Galatasaray, 21. şampiyonluk kupasını aldı. Maçın ardından Türk Telekom Arena'da kurulan platformda gerçekleştirilen törende sarı-kırmızılılar şampiyonluk kupasını havaya kaldırdı. Sarı-kırmızılılar, büyük sevinç yaşadılar.</span></div>
+</div>
+</body>
+</html>

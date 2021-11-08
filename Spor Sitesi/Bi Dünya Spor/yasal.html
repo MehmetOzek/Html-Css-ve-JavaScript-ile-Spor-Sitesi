@@ -1,0 +1,199 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Yasal</title>
+<meta name="generator">
+<link href="sports-portal-bar-icon-png-21.png" rel="shortcut icon" type="image/x-icon">
+<link href="anasayfa.css" rel="stylesheet">
+<link href="yasal.css" rel="stylesheet">
+<script src="jquery-1.12.4.min.js"></script>
+<script src="wb.panel.min.js"></script>
+<script src="./searchindex.js"></script>
+<script>
+var features = 'toolbar=no,menubar=no,location=no,scrollbars=yes,resizable=yes,status=no,left=,top=,width=,height=';
+var searchDatabase = new SearchDatabase();
+var searchResults_length = 0;
+var searchResults = new Object();
+function searchPage(features)
+{
+   var element = document.getElementById('SiteSearch1');
+   if (element.value.length != 0 || element.value != " ")
+   {
+      var value = unescape(element.value);
+      var keywords = value.split(" ");
+      searchResults_length = 0;
+      for (var i=0; i<database_length; i++)
+      {
+         var matches = 0;
+         var words = searchDatabase[i].title + " " + searchDatabase[i].description + " " + searchDatabase[i].keywords;
+         for (var j = 0; j < keywords.length; j++)
+         {
+            var pattern = new RegExp(keywords[j], "i");
+            var result = words.search(pattern);
+            if (result >= 0)
+            {
+               matches++;
+            }
+            else
+            {
+               matches = 0;
+            }
+         }
+         if (matches == keywords.length)
+         {
+            searchResults[searchResults_length++] = searchDatabase[i];
+         }
+      }
+      var wndResults = window.open('about:blank', '', features);
+      setTimeout(function()
+      {
+         var results = '';
+         var html = '<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Search results<\/title><\/head>';
+         html = html + '<body style="background-color:#FFFFFF;margin:0;padding:2px 2px 2px 2px;">';
+         html = html + '<span style="font-family:Monotype Corsiva;font-size:13px;color:#000000">';
+         for (var n=0; n<searchResults_length; n++)
+         {
+            var page_keywords = searchResults[n].keywords;
+            results = results + '<strong><a style="color:#0000FF" target="_parent" href="'+searchResults[n].url+'">'+searchResults[n].title +'<\/a><\/strong><br>Anahtar Kelime:' + page_keywords +'<br><br>\n';
+         }
+         if (searchResults_length == 0)
+         {
+            results = 'Sonuç Bulunamadı';
+         }
+         else
+         {
+            html = html + searchResults_length;
+            html = html + 'Bulunan Sonuçlar:';
+            html = html + value;
+            html = html + '<br><br>';
+         }
+         html = html + results;
+         html = html + '<\/span>';
+         html = html + '<\/body><\/html>';
+         wndResults.document.write(html);
+     },100);
+   }
+   return false;
+}
+function searchParseURL()
+{
+   var url = decodeURIComponent(window.location.href);
+   if (url.indexOf('?') > 0)
+   {
+      var terms = '';
+      var params = url.split('?');
+      var values = params[1].split('&');
+      for (var i=0;i<values.length;i++)
+      {
+         var param = values[i].split('=');
+         if (param[0] == 'q')
+         {
+            terms = unescape(param[1]);
+            break;
+         }
+      }
+      if (terms != '')
+      {
+         var element = document.getElementById('SiteSearch1');
+         element.value = terms;
+         searchPage('');
+      }
+   }
+}
+</script>
+<script>
+$(document).ready(function()
+{
+   searchParseURL();
+   $("#PanelMenu1").panel({animate: true, animationDuration: 200, animationEasing: 'linear', dismissible: true, display: 'push', position: 'left', toggle: true});
+});
+</script>
+</head>
+<body>
+<div id="container">
+<div id="wb_Image1" style="position:absolute;left:0px;top:0px;width:960px;height:172px;z-index:6;">
+<img src="images/1241banner-001.jpg" id="Image1" alt=""></div>
+<form name="SiteSearch1_form" id="SiteSearch1_form" accept-charset="UTF-8" onsubmit="return searchPage(features)">
+<input type="text" id="SiteSearch1" style="position:absolute;left:656px;top:182px;width:195px;height:19px;line-height:19px;z-index:7;" name="SiteSearch1" value="" placeholder="  Sitede Ara"></form>
+<input type="button" id="Button1" onclick="searchPage();return false;" name="Ara" value="Ara" style="position:absolute;left:864px;top:184px;width:96px;height:25px;z-index:8;">
+<!-- Puan Durumu -->
+<div id="Html1" style="position:absolute;left:661px;top:386px;width:269px;height:301px;z-index:9">
+<iframe id="Puantablosu" src="http://www.ücretsiz.com/puantablosu.html" style="width:330px; height:485px;background:white;*border:1px solid red;" frameborder="0"></iframe></div>
+<div id="wb_CssMenu3" style="position:absolute;left:194px;top:1485px;width:572px;height:38px;z-index:10;">
+<ul>
+<li class="firstmain"><a href="./iletisim.html" target="_self">&#304;leti&#351;im</a>
+</li>
+<li><a href="./hakkinda.html" target="_self">Hakk&#305;m&#305;zda</a>
+</li>
+<li><a href="./yasal.html" target="_self">Yasal&nbsp;Bilgiler</a>
+</li>
+<li><a href="./siteharitasi.html" target="_self">Site&nbsp;Haritas&#305;</a>
+</li>
+</ul>
+</div>
+<div id="wb_Text1" style="position:absolute;left:0px;top:1541px;width:960px;height:17px;z-index:11;text-align:left;">
+<span style="color:#808080;font-family:Arial;font-size:15px;">&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; Mehmet Özek l ismail Nair l Tüm hakları gizlidir.İzinsiz kopyalanamaz ve taşınamaz. &#0169;</span></div>
+<div id="wb_loginform" style="position:absolute;left:655px;top:219px;width:303px;height:156px;z-index:12;">
+<form name="loginform" method="post" action="giriş" accept-charset="UTF-8" id="loginform">
+<input type="hidden" name="form_name" value="loginform">
+<input type="text" id="username" style="position:absolute;left:7px;top:27px;width:279px;height:18px;line-height:18px;z-index:0;" name="username" value="">
+<label for="password" id="Label2" style="position:absolute;left:6px;top:55px;width:283px;height:18px;line-height:18px;z-index:1;">Şifre</label>
+<input type="password" id="password" style="position:absolute;left:7px;top:81px;width:279px;height:18px;line-height:18px;z-index:2;" name="password" value="" maxlength="15">
+<label for="rememberme" id="Label3" style="position:absolute;left:21px;top:106px;width:268px;height:18px;line-height:18px;z-index:3;">Beni Hatırla</label>
+<input type="checkbox" id="rememberme" name="rememberme" value="on" style="position:absolute;left:8px;top:109px;z-index:4;">
+<input type="submit" id="login" name="login" value="Giriş" style="position:absolute;left:112px;top:124px;width:55px;height:24px;z-index:5;">
+</form>
+</div>
+<label for="username" id="Label1" style="position:absolute;left:662px;top:219px;width:283px;height:18px;line-height:18px;z-index:13;">Kullanıcı Adı</label>
+<div id="wb_CssMenu1" style="position:absolute;left:0px;top:182px;width:650px;height:49px;z-index:14;">
+<ul>
+<li class="firstmain"><a href="./index.html" target="_self">Anasayfa</a>
+</li>
+<li><a href="./akademik.html" target="_self">Akademik</a>
+</li>
+<li><a href="./turnuvalar.html" target="_self">Turnuvalar</a>
+</li>
+</ul>
+</div>
+<div id="wb_PanelMenu1" style="position:absolute;left:0px;top:283px;width:648px;height:59px;text-align:center;z-index:15;">
+<a href="#PanelMenu1_markup" id="PanelMenu1">Bran&#351;lar</a>
+<div id="PanelMenu1_markup">
+<ul>
+   <li><a href="./futbol.html">Futbol</a></li>
+   <li><a href="./basketbol.html">Basketbol</a></li>
+   <li><a href="./voleybol.html">Voleybol</a></li>
+   <li><a href="./tenis.html">Tenis</a></li>
+   <li><a href="./yüzme.html">Y&#252;zme</a></li>
+   <li><a href="./aticilik.html">At&#305;c&#305;l&#305;k</a></li>
+   <li><a href="./binicilik.html">Binicilik</a></li>
+   <li><a href="./badminton.html">Badminton</a></li>
+   <li><a href="./kürek.html">K&#252;rek</a></li>
+   <li><a href="./hokey.html">Buz Hokeyi</a></li>
+</ul>
+</div>
+</div>
+<div id="wb_CssMenu2" style="position:absolute;left:0px;top:231px;width:650px;height:44px;z-index:16;">
+<ul>
+<li class="firstmain"><a href="./olimpiyatlar.html" target="_self">Olimpiyatlar</a>
+</li>
+<li><a href="./gencolimpiyat.html" target="_self">Gen&#231;lik&nbsp;Olimpiyatlar</a>
+</li>
+<li><a class="withsubmenu" href="#" target="_self">Galeri</a>
+
+<ul>
+<li class="firstitem"><a href="#" target="_self">Foto&#287;raf&nbsp;Galerisi</a>
+</li>
+<li class="lastitem"><a href="./videogaleri.html" target="_self">Video&nbsp;Galerisi</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="wb_Text2" style="position:absolute;left:58px;top:352px;width:535px;height:49px;z-index:17;text-align:left;">
+<span style="color:#A9A9A9;font-family:Arial;font-size:43px;">YASAL YÜKÜMLÜLÜKLER</span></div>
+<div id="wb_Text4" style="position:absolute;left:14px;top:401px;width:623px;height:1080px;z-index:18;text-align:left;">
+<span style="color:#696969;font-family:'Lucida Sans Unicode';font-size:15px;">Bu siteyi kullanmaya ba&#0351;lad&#0305;&#0287;&#0305;n&#0305;z andan itibaren a&#0351;a&#0287;&#0305;da yaz&#0305;l&#0305; t&#0252;m hususlar&#0305; tamamen anlam&#0305;&#0351; ve kabul etmi&#0351; say&#0305;l&#0305;rs&#0305;n&#0305;z. www.bidunyaspor.com.tr bu maddelerde &#0246;nceden haber vermeksizin de&#0287;i&#0351;iklik yapabilir. Bu &#0351;artlardan bir ya da birka&#0231;&#0305;n&#0305;n ihlal edilmesi durumunda herhangi bir uyar&#0305; ya da bilgi vermeye gerek kalmadan kullan&#0305;m&#0305;n&#0305;z&#0305; k&#0305;s&#0305;tlama ya da son verme hakk&#0305;m&#0305;z sakl&#0305;d&#0305;r. Siteyi kullan&#0305;rken t&#0252;m i&#0351;lemlerinizden ki&#0351;isel olarak sorumlu oldu&#0287;unuz, eylemleriniz nedeniyle zarar g&#0246;rebilecek herkesin zararlar&#0305;n&#0305; tazmin etmek zorunda kalaca&#0287;&#0305;n&#0305;z &#0246;nemle ihtar olunur. A&#0351;a&#0287;&#0305;da yaz&#0305;l&#0305; hususlar&#0305;n herhangi birinin yasalar &#0231;er&#0231;evesinde, kanun koyucu, herhangi bir resmi mercii ya da mahkemelerce ge&#0231;ersiz addolunmas&#0305; di&#0287;er maddelerin ge&#0231;erlili&#0287;ini etkilemez. <br><br>www.bidunyaspor.com.tr; ana &#0351;irketi, ba&#0287;l&#0305; kurulu&#0351;lar, i&#0351;tirak etti&#0287;i kurulu&#0351;lar ve i&#0231;erik sa&#0287;lay&#0305;c&#0305;lar&#0305;n&#0305;n, y&#0252;r&#0252;rl&#0252;kteki hukuk kurallar&#0305;n&#0305;n izin verdi&#0287;i azami &#0246;l&#0231;&#0252;de kullan&#0305;c&#0305;lar&#0305;n maruz kald&#0305;&#0287;&#0305; herhangi do&#0287;rudan, dolayl&#0305;, &#0246;zel, tesad&#0252;fi, hukuki, mali, cezai ve sair her t&#0252;rl&#0252; zararlardan; hizmetlerinin kullan&#0305;m&#0305; veya kullan&#0305;lamamas&#0305;; hizmetleri dolay&#0305;s&#0305;yla yap&#0305;lan i&#0351;lemler; k&#0226;r, veri veya di&#0287;er soyut hususlar&#0305;n kayb&#0305;; ik&#0226;me edilen mal veya hizmetleri elde etme maliyeti; yetkisiz eri&#0351;im; ki&#0351;isel bilgi ve iletilerin tahrifat&#0305;; al&#0305;nan mesajlar; sitenin iyi ya da k&#0246;t&#0252; performans&#0305;; izinsiz olarak ba&#0351;ka bir www.bidunyaspor.com.tr sitesinin yarat&#0305;lmas&#0305;; hizmet ik&#0226;mesi veya fihristten kaynaklanan zararlar dahil olmak, ancak bunlarla s&#0305;n&#0305;rl&#0305; olmamak &#0252;zere her t&#0252;rl&#0252; taleplere kar&#0351;&#0305;, bu tip zararlar&#0305;n ger&#0231;ekle&#0351;mesinin m&#0252;mk&#0252;n olabilece&#0287;ine dair uyar&#0305;lar olmasa ve bu zararlar akit, ihmal, haks&#0305;z fiil, kanun, adalet, hukuk veya ba&#0351;ka sebeplerle do&#0287;mu&#0351; olsalar dahi sorumlulu&#0287;u bulunmamaktad&#0305;r. <br><br>www.bidunyaspor.com.tr; sundu&#0287;u site i&#0231;eri&#0287;inden; internet kullan&#0305;c&#0305;lar&#0305;na verece&#0287;i hizmetler dolay&#0305;s&#0305;yla donan&#0305;m ve yaz&#0305;l&#0305;m temininden; hizmetlerin verilmesi esnas&#0305;nda veya herhangi bir zamanda olu&#0351;abilecek ar&#0305;za ve sair teknik sebeplerden; bu hizmetlerin verilmesine ara veya son verilmesi yahut hizmetin kesintiye u&#0287;ramas&#0305;ndan; keza donan&#0305;m, yaz&#0305;l&#0305;m ve internet sunucusundan kaynaklanan aksakl&#0305;klar sonucu &#0252;&#0231;&#0252;nc&#0252; ki&#0351;ilerin kendisine ait bilgilere eri&#0351;iminden sorumlu de&#0287;ildir. <br><br>www.bidunyaspor.com.tr sayfalar&#0305;nda; a&#0231;&#0305;k veya z&#0305;mnen belirtilmi&#0351; t&#0252;m ticari garantiler de dahil her t&#0252;rl&#0252; garantiyi reddeder. Bu &#0231;er&#0231;evede, belirli bir amaca uygunlu&#0287;u; bilgilerin do&#0287;ruluk ve g&#0252;venilirli&#0287;ini; kullan&#0305;c&#0305;lar&#0305;n ihtiya&#0231;lar&#0305;n&#0305; kar&#0351;&#0305;layaca&#0287;&#0305;n&#0305;, b&#0246;l&#0252;nmeyece&#0287;ini, s&#0252;resinde, g&#0252;venli ve hatas&#0305;z olaca&#0287;&#0305;n&#0305; garanti etmez.www.bidunyaspor.com.tr di&#0287;er internet sitelerine ba&#0287;lant&#0305;lar ve y&#0246;nlendiriciler sa&#0287;lamaktad&#0305;r. Bu ba&#0287;lant&#0305;lar, link verilen sitelerin grup &#0351;irketlerimize ait oldu&#0287;unu ya da denetlendi&#0287;ini g&#0246;stermez. Ba&#0287;lant&#0305; verilen sitelerdeki malzemeler &quot;oldu&#0287;u gibi&quot; sa&#0287;lanmakta ve a&#0231;&#0305;k ya da dolayl&#0305; hi&#0231; bir garanti verilmemektedir. <br><br>www.bidunyaspor.com.tr , ba&#0287;lant&#0305; verilen sitelerle ilgili hi&#0231; bir sorumluluk kabul etmez. Bu sitelerin vir&#0252;slerden veya ba&#0351;ka zararl&#0305; unsurlardan ar&#0305;nm&#0305;&#0351; oldu&#0287;u garantisini vermez. www.bidunyaspor.com.tr, bu sitelerdeki malzemelerin kullan&#0305;m&#0305; ya da kullan&#0305;m sonu&#0231;lar&#0305;, do&#0287;rulu&#0287;u, kesinli&#0287;i, g&#0252;venilirli&#0287;i, zaman&#0305;nda oldu&#0287;u ve sair hi&#0231; bir konuda garanti vermez. <br><br>Kullan&#0305;c&#0305;lar, www.bidunyaspor.com.tr &#8217;nin sa&#0287;lam&#0305;&#0351; oldu&#0287;u hizmetlerden yararlanmak suretiyle &#0252;&#0231;&#0252;nc&#0252; &#0351;ah&#0305;slardan alm&#0305;&#0351; oldu&#0287;u mal ve hizmetlerdeki ay&#0305;plardan www.bidunyaspor.com.tr &#8217;nin hi&#0231; bir surette sorumlu olmad&#0305;&#0287;&#0305;n&#0305;, T&#0252;ketici&#8217;un Korunmas&#0305; Hakk&#0305;ndaki Kanun ve ilgili mevzuat h&#0252;k&#0252;mleri dahilinde www.bidunyaspor.com.tr'ye izafe edilebilecek her t&#0252;rl&#0252; sorumluluk kar&#0351;&#0305;s&#0305;nda www.bidunyaspor.com.tr 'yi &#0351;imdiden ibra ettiklerini kabul ve beyan ederler. <br><br>Uygulanacak Hukuk Bu site www.bidunyaspor.com.tr taraf&#0305;ndan Erzurum, T&#0252;rkiye'de yarat&#0305;lm&#0305;&#0351; ve i&#0351;letilmektedir. Bu sitedeki t&#0252;m kurallar, beyanlar ve bu sitenin kullan&#0305;m&#0305; T&#0252;rk maddi hukuk ve T&#0252;rk usul hukuku kurallar&#0305;na t&#0226;bidir. Bu site ile ilgili uyu&#0351;mazl&#0305;klar&#0305;n &#0231;&#0246;z&#0252;m&#0252;nde Erzurum mahkeme ve icra daireleri m&#0252;nhas&#0305;ran yetkilidir.</span></div>
+</div>
+</body>
+</html>
